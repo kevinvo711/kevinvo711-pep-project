@@ -24,9 +24,17 @@ public class AccountService {
     public Account addAccount(Account acc){
         if(acc.getUsername().length() <= 0 
             || acc.getPassword().length() <= 3 
-            || accountDAO.getAccountByUsername(acc.getUsername()) != null){
+            || accountDAO.getAccount(acc) != null){
                 return null;
         }
         return accountDAO.insertAccount(acc);
+    }
+    /**
+     * Checks for existing account
+     * @param Account acc
+     * @return the Account object from the database with an id
+     */
+    public Account getAccount(Account acc){
+        return accountDAO.getAccount(acc);
     }
 }

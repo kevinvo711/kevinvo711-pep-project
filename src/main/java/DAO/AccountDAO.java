@@ -31,14 +31,9 @@ public class AccountDAO {
             preparedStatement.executeUpdate(); 
             // preparedStatement.execute();
             ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
-            /*
-            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
-            int generatedAccountId = (int)pkeyResultSet.getLong(1);
-            return new Account(generatedAccountId, account.getUsername(), account.getPassword());
-            */
             if(pkeyResultSet.next()){
-                int generatedAccountId = (int)pkeyResultSet.getLong(1);
-                // int generatedAccountId = pkeyResultSet.getInt(1);
+                // int generatedAccountId = (int)pkeyResultSet.getLong(1);
+                int generatedAccountId = pkeyResultSet.getInt(1);
                 return new Account(generatedAccountId, account.getUsername(), account.getPassword());
             }
             // return account;
@@ -48,16 +43,17 @@ public class AccountDAO {
         return null;
     }
     /**
-     * Finds an account in the database, given a username
-     * @param String username
-     * @return Account object with that username, null otherwise
+     * Finds an account in the database, given a username and password
+     * @param Account acc
+     * @return Account object with those credentials, plus its id. null otherwise
      */
-    public Account getAccountByUsername(String username){
+    public Account getAccount(Account acc){
         Connection connection = ConnectionUtil.getConnection();
         try{
-            String sql = "SELECT * FROM account WHERE username = ?";
+            String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
+            preparedStatement.setString(1, acc.getUsername());
+            preparedStatement.setString(2, acc.getPassword());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
