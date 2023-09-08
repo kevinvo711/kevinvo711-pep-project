@@ -54,6 +54,7 @@ public class SocialMediaController {
         Account addedAccount = accountService.addAccount(account);
         if(addedAccount != null){
             context.json(mObjectMapper.writeValueAsString(addedAccount));
+            // context.status(200);
         }else{
             context.status(400);
         }
