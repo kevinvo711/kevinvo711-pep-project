@@ -10,6 +10,12 @@ import java.sql.SQLException;
 
 
 public class AccountDAO {
+
+    /**
+     * 
+     * @param Account account
+     * @return an Account object with its generated autoincrement user id, null otherwise
+     */
     public Account insertAccount(Account account){
         Connection connectionObject = ConnectionUtil.getConnection();
         try{
@@ -29,6 +35,27 @@ public class AccountDAO {
             }
             // return account;
         } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    /**
+     * Finds an account in the database, given a username
+     * @param String username
+     * @return Account object with that username, null otherwise
+     */
+    public Account getAccountByUsername(String username){
+        Connection connection = ConnectionUtil.getConnection();
+        try{
+            String sql = "SELECT * FROM account WHERE username = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                Account account = new Account(rs.getInt("account_id"), rs.getString("username"), rs.getString("password"));
+                return account;
+            }
+        } catch(SQLException e){
             System.out.println(e.getMessage());
         }
         return null;

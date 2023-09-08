@@ -4,7 +4,7 @@ import Model.Account;
 import DAO.AccountDAO;
 
 public class AccountService {
-    public AccountDAO accountDAO;
+    private AccountDAO accountDAO;
 
     public AccountService(){
         accountDAO = new AccountDAO();
@@ -15,11 +15,18 @@ public class AccountService {
     }
 
     /**
-     * Adds object entry to database only if it doesn't exist in there
+     * Adds object entry to database 
+     * Preconditions: Account must not already exist, username must not be blank, 
+     * password must be at least 4 characters long
      * @param acc: Account object
      * @return the object if successfully added, null otherwise
      */
     public Account addAccount(Account acc){
+        if(acc.getUsername().length() <= 0 
+            || acc.getPassword().length() <= 3 
+            || accountDAO.getAccountByUsername(acc.getUsername()) != null){
+                return null;
+        }
         return accountDAO.insertAccount(acc);
     }
 }
