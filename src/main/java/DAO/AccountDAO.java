@@ -32,11 +32,9 @@ public class AccountDAO {
             // preparedStatement.execute();
             ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
             if(pkeyResultSet.next()){
-                // int generatedAccountId = (int)pkeyResultSet.getLong(1);
                 int generatedAccountId = pkeyResultSet.getInt(1);
                 return new Account(generatedAccountId, account.getUsername(), account.getPassword());
             }
-            // return account;
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
