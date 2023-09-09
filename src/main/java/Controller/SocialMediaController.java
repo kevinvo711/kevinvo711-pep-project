@@ -149,8 +149,9 @@ public class SocialMediaController {
         // Message m = messageService.updateMessage(Integer.parseInt(context.pathParam("message_id")));
         /* Should probably find a way to read context only as string, since that's what's important */
         Message m = mObjectMapper.readValue(context.body(), Message.class);
+        String messageText = m.getMessage_text();
         int id = Integer.parseInt(context.pathParam("message_id"));
-        Message updatedMessage = messageService.updateMessage(m, id);
+        Message updatedMessage = messageService.updateMessage(messageText, id);
         if(updatedMessage != null){
             context.json(updatedMessage);
         }else{
@@ -159,8 +160,8 @@ public class SocialMediaController {
     }
 
     /**
-     * 
-     * @param context
+     * Gets all messages of an account
+     * @param Context context
      * @throws JsonProcessingException
      */
     private void getAllAccountMessagesHandler(Context context) throws JsonProcessingException{

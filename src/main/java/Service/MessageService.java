@@ -60,13 +60,13 @@ public class MessageService{
      * @param int id, the message_id in database to be updated
      * @return Message, the updated Message with its id, null otherwise
      */
-    public Message updateMessage(Message m, int id){
-        if(m.getMessage_text().length() <= 0 
-            || m.getMessage_text().length() >= 255
+    public Message updateMessage(String text, int id){
+        if(text.length() <= 0 
+            || text.length() >= 255
             || messageDAO.getMessage(id) == null){
                 return null;
         }
-        return messageDAO.updateMessage(m, id);
+        return messageDAO.updateMessage(text, id);
     }
 
     /**
