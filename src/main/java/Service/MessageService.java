@@ -56,7 +56,7 @@ public class MessageService{
 
     /**
      * Updates message in database
-     * @param Message m, containing the message text to be updated ONLY and no other relevant fields
+     * @param String text, the message_text to be updated
      * @param int id, the message_id in database to be updated
      * @return Message, the updated Message with its id, null otherwise
      */

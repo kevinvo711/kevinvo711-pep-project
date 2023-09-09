@@ -144,14 +144,10 @@ public class SocialMediaController {
      * @throws JsonProcessingException
      */
     private void patchMessageHandler(Context context) throws JsonProcessingException{
-        ObjectMapper mObjectMapper = new ObjectMapper();
-        // Message m = mObjectMapper.readValue(Integer.parseInt(context.pathParam("message_id")));
-        // Message m = messageService.updateMessage(Integer.parseInt(context.pathParam("message_id")));
-        /* Should probably find a way to read context only as string, since that's what's important */
-        Message m = mObjectMapper.readValue(context.body(), Message.class);
-        String messageText = m.getMessage_text();
-        int id = Integer.parseInt(context.pathParam("message_id"));
-        Message updatedMessage = messageService.updateMessage(messageText, id);
+        ObjectMapper mObjectMapper = new ObjectMapper(); //Jackson ObjectMapper
+        Message m = mObjectMapper.readValue(context.body(), Message.class); //Read relevant JSON value
+        int id = Integer.parseInt(context.pathParam("message_id")); //get paramaterized endpoint value
+        Message updatedMessage = messageService.updateMessage(m.getMessage_text(), id); //send relevant data over
         if(updatedMessage != null){
             context.json(updatedMessage);
         }else{

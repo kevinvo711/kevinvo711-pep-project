@@ -102,8 +102,7 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
-                Message m = new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch"));
-                messages.add(m);
+                messages.add(new Message(rs.getInt("message_id"), rs.getInt("posted_by"), rs.getString("message_text"), rs.getLong("time_posted_epoch")));
             }
         }
         catch(SQLException e){
@@ -137,7 +136,7 @@ public class MessageDAO {
 
     /**
      * Updates a message in database by id
-     * @param Message m, to get message_text ONLY
+     * @param String text, the text to be updated
      * @param int id
      * @return updated Message
      */
