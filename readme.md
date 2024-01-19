@@ -1,1 +1,1 @@
-This is a fork of the skeleton of Java project from Revature for implementing API access points along with a SQL database. The functions were written by me. For more information, see [Instructions.md](Instructions.md)
+This is a fork of the skeleton of Java project from Revature for implementing API access points along with a SQL database. The function implementations were written by me. For more information, see [Instructions.md](Instructions.md)
