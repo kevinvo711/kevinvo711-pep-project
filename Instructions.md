@@ -94,4 +94,4 @@ You SHOULD be creating and designing DAO and Service class to allow you to compl
 
 Please refrain from using a 'try-with-resources' block when connecting to your database. The ConnectionUtil provided uses a singleton, and using a try-with-resources will cause issues in the tests, or for any situation where you try to access the database again after the resource has been closed.
 
-# Good luck!
+# Good luck
